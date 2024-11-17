@@ -11,6 +11,7 @@
 namespace ft {
 
 void to_complex(const cv::Mat1d& src, cv::Mat& dst);
+void to_real(const CMat& src, cv::Mat& dst);
 void to_center(cv::Mat& src);
 void magnitude(const cv::Mat& src, cv::Mat& dst);
 void dft_optimal_size(const cv::Mat& src, cv::Mat& dst);

@@ -11,6 +11,11 @@ void to_complex(const cv::Mat1d& src, cv::Mat& dst)
     dst = res;
 }
 
+void to_real(const CMat& src, cv::Mat& dst)
+{
+    cv::extractChannel(src, dst, 0);
+}
+
 void to_center(cv::Mat& src)
 {
     int cx = src.cols / 2;

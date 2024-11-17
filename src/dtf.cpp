@@ -1,10 +1,9 @@
 #include "ft_cpp/dft.hpp"
 #include "ft_cpp/utils.hpp"
-#include <iostream>
 
 namespace ft {
 
-CMat dft_1d(const CMat& src)
+CMat dft_1d(const CMat& src, bool inverse)
 {
     cv::Size src_size = src.size();
     if ((src_size.width != 1) && (src_size.height != 1))
@@ -13,8 +12,14 @@ CMat dft_1d(const CMat& src)
     }
     const size_t M = std::max(src_size.height, src_size.width);
 
+    double sign = -1.0;
+    if (inverse)
+    {
+        double sign = 1.0;
+    }
+
     using namespace std::complex_literals;
-    const CDouble W = std::exp((-2.0 * 1i * std::numbers::pi) / static_cast<double>(M));
+    const CDouble W = std::exp((sign * 2.0 * 1i * std::numbers::pi) / static_cast<double>(M));
 
     CMat w_prod(cv::Size(M, M));
     CMat w_prep(cv::Size((M - 1) * (M - 1) + 1, 1));
@@ -36,7 +41,6 @@ CMat dft_1d(const CMat& src)
         }
     }
 
-
     CMat res;
     if (src_size.width == 1)
     {
@@ -44,27 +48,29 @@ CMat dft_1d(const CMat& src)
     }
     else
     {
-        CMat temp = src.clone();
-        res = (w_prod * temp.t()).t();
+        res = (w_prod * src.t()).t();
     }
 
     return res;
 }
 
-void dft_2d(const cv::Mat& src, cv::Mat& dst)
+void dft_2d(const cv::Mat& src, cv::Mat& dst, bool inverse)
 {
     cv::Size src_size = src.size();
     CMat res = src.clone();
     for (int v_idx = 0; v_idx < src_size.height; ++v_idx)
     {
         CMat col_step = res.col(v_idx);
-        dft_1d(col_step).copyTo(col_step);
+        dft_1d(col_step, inverse).copyTo(col_step);
     }
     for (int h_idx = 0; h_idx < src_size.width; ++h_idx)
     {
         CMat row_step = res.row(h_idx);
-        dft_1d(row_step).copyTo(row_step);
-        // row_step.row(h_idx) = dft_1d(row_step);
+        dft_1d(row_step, inverse).copyTo(row_step);
+    }
+    if (inverse) {
+        res = res / (src_size.height * src_size.width);
+        cv::flip(res, res, -1);
     }
     dst = res;
 }
