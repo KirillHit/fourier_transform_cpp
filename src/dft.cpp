@@ -3,7 +3,7 @@
 
 namespace ft {
 
-CMat dft_1d(const CMat& src, bool inverse)
+void dft_1d(const CMat& src, CMat& dst, bool inverse)
 {
     cv::Size src_size = src.size();
     if ((src_size.width != 1) && (src_size.height != 1))
@@ -51,7 +51,12 @@ CMat dft_1d(const CMat& src, bool inverse)
         res = (w_prod * src.t()).t();
     }
 
-    return res;
+    if (inverse)
+    {
+        res = res / M;
+    }
+
+    res.copyTo(dst);
 }
 
 void dft_2d(const cv::Mat& src, cv::Mat& dst, bool inverse)
@@ -61,15 +66,15 @@ void dft_2d(const cv::Mat& src, cv::Mat& dst, bool inverse)
     for (int v_idx = 0; v_idx < src_size.height; ++v_idx)
     {
         CMat col_step = res.col(v_idx);
-        dft_1d(col_step, inverse).copyTo(col_step);
+        dft_1d(col_step, col_step, inverse);
     }
     for (int h_idx = 0; h_idx < src_size.width; ++h_idx)
     {
         CMat row_step = res.row(h_idx);
-        dft_1d(row_step, inverse).copyTo(row_step);
+        dft_1d(row_step, row_step, inverse);
     }
-    if (inverse) {
-        res = res / (src_size.height * src_size.width);
+    if (inverse)
+    {
         cv::flip(res, res, -1);
     }
     dst = res;

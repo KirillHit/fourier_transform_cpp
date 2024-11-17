@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1...3.28)
+cmake_minimum_required(VERSION 3.8)
 
 project(ft_cpp LANGUAGES CXX)
 

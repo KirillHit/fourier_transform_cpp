@@ -10,7 +10,7 @@
 
 namespace ft {
 
-CMat dft_1d(const CMat& src, bool inverse = false);
+void dft_1d(const CMat& src, CMat& dst, bool inverse);
 void dft_2d(const cv::Mat& src, cv::Mat& dst, bool inverse = false);
 
 }  // namespace ft

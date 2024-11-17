@@ -1,15 +1,15 @@
 ADD_DEFINITIONS(-DSOURCE_DIR="${PROJECT_SOURCE_DIR}/")
 
-add_executable(dft_test dft_test.cpp)
-target_link_libraries(dft_test
+add_executable(cft_test cft_test.cpp)
+target_link_libraries(cft_test
   PUBLIC
     ${OpenCV_LIBS}
     ft_lib
 )
 target_include_directories(
-  dft_test
+  cft_test
   PUBLIC
     ${OpenCV_INCLUDE_DIRS}
 )
-add_test(NAME DFTTes
-         COMMAND dft_test)
+add_test(NAME CustomFourierTransformTest
+         COMMAND cft_test)
