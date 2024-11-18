@@ -13,3 +13,18 @@ target_include_directories(
 )
 add_test(NAME CustomFourierTransformTest
          COMMAND cft_test)
+
+add_executable(freq_cut_test freq_cut_test.cpp)
+target_link_libraries(freq_cut_test
+  PUBLIC
+    ${OpenCV_LIBS}
+    ft_lib
+)
+target_include_directories(
+  freq_cut_test
+  PUBLIC
+    ${OpenCV_INCLUDE_DIRS}
+)
+add_test(NAME FrequencyCuttingTest
+        COMMAND freq_cut_test)
+         

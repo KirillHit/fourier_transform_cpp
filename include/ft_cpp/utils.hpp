@@ -15,6 +15,10 @@ void to_real(const CMat& src, cv::Mat& dst);
 void to_center(cv::Mat& src);
 void magnitude(const cv::Mat& src, cv::Mat& dst);
 void dft_optimal_size(const cv::Mat& src, cv::Mat& dst);
+void cut_frequencies(const cv::Mat& src,
+                     cv::Mat& dst,
+                     const unsigned int& radius,
+                     bool inverse = false);
 
 }  // namespace ft
 
