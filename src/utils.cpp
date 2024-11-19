@@ -127,4 +127,21 @@ void template_matching(const cv::Mat& src, const cv::Mat& conv, cv::Mat& dst)
     res(cv::Rect(0, 0, src_size.width, src_size.height)).copyTo(dst);
 }
 
+void inverse_img(const CMat& src, cv::Mat& dst, const double& noise)
+{
+    cv::Mat planes[2];
+    cv::split(src, planes);
+    cv::Mat real_pow, img_pow;
+    cv::multiply(planes[0], planes[0], real_pow);
+    cv::multiply(planes[1], planes[1], img_pow);
+    cv::Mat dev_mat = real_pow + img_pow;
+    dev_mat += noise;
+    cv::divide(planes[0], dev_mat, planes[0]);
+    cv::divide(planes[1], dev_mat, planes[1]);
+    planes[1] = - planes[1];
+    cv::Mat res;
+    cv::merge(planes, 2, res);
+    res.copyTo(dst);
+}
+
 }  // namespace ft

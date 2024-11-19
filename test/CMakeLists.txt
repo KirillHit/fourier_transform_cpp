@@ -54,4 +54,18 @@ target_include_directories(
     ${OpenCV_INCLUDE_DIRS}
 )
 add_test(NAME TemplateTest
-        COMMAND template_test)
+COMMAND template_test)
+
+add_executable(deconvolution_test deconvolution_test.cpp)
+target_link_libraries(deconvolution_test
+  PUBLIC
+    ${OpenCV_LIBS}
+    ft_lib
+)
+target_include_directories(
+  deconvolution_test
+  PUBLIC
+    ${OpenCV_INCLUDE_DIRS}
+)
+add_test(NAME DeconvolutionTest
+        COMMAND deconvolution_test)
