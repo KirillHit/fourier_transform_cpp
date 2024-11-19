@@ -20,6 +20,7 @@ void cut_frequencies(const cv::Mat& src,
                      const unsigned int& radius,
                      bool inverse = false);
 void convolve_dft(const cv::Mat& src, const cv::Mat& conv, cv::Mat& dst);
+void template_matching(const cv::Mat& src, const cv::Mat& conv, cv::Mat& dst);
 
 }  // namespace ft
 

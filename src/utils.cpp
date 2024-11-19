@@ -105,7 +105,26 @@ void convolve_dft(const cv::Mat& src, const cv::Mat& conv, cv::Mat& dst)
     cv::mulSpectrums(temp1, temp2, temp1, 0);
 
     fft_2d(temp1, temp1, true);
-    temp1(cv::Rect(border_size.width, border_size.height, src_size.width, src_size.height)).copyTo(dst);
+    temp1(cv::Rect(border_size.width, border_size.height, src_size.width, src_size.height))
+        .copyTo(dst);
+}
+
+void template_matching(const cv::Mat& src, const cv::Mat& conv, cv::Mat& dst)
+{
+    cv::Size src_size = src.size();
+    cv::Mat temp2(src_size, src.type(), cv::Scalar::all(0));
+    cv::Mat roi2(temp2, cv::Rect(0, 0, conv.cols, conv.rows));
+    conv.copyTo(roi2);
+
+    cv::Mat temp1;
+    fft_2d(src, temp1);
+    fft_2d(temp2, temp2);
+
+    cv::Mat res;
+    cv::mulSpectrums(temp1, temp2, res, 0, true);
+
+    fft_2d(res, res, true);
+    res(cv::Rect(0, 0, src_size.width, src_size.height)).copyTo(dst);
 }
 
 }  // namespace ft

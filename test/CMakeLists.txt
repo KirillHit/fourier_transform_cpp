@@ -41,3 +41,17 @@ target_include_directories(
 )
 add_test(NAME FilterTest
          COMMAND filter_test)
+
+add_executable(template_test template_test.cpp)
+target_link_libraries(template_test
+  PUBLIC
+    ${OpenCV_LIBS}
+    ft_lib
+)
+target_include_directories(
+  template_test
+  PUBLIC
+    ${OpenCV_INCLUDE_DIRS}
+)
+add_test(NAME TemplateTest
+        COMMAND template_test)
