@@ -7,8 +7,9 @@
 
 int main(void)
 {
-    cv::Mat img = cv::imread(std::string(SOURCE_DIR) + "/images/lena.png");
+    cv::Mat img = cv::imread(std::string(SOURCE_DIR) + "/images/park.jpg");
     cv::cvtColor(img, img, cv::COLOR_BGR2GRAY);
+    cv::Size img_size = img.size();
     ft::dft_optimal_size(img, img);
     cv::imshow("org", img);
 
@@ -28,7 +29,7 @@ int main(void)
     ft::fft_2d(cut_fft_img, cut_ifft_img, true);
     ft::to_real(cut_ifft_img, cut_ifft_img);
     cv::normalize(cut_ifft_img, cut_ifft_img, 0, 1, cv::NORM_MINMAX);
-    cv::imshow("ifft_img", cut_ifft_img);
+    cv::imshow("ifft_img", cut_ifft_img(cv::Rect(0, 0, img_size.width, img_size.height)));
 
     cv::Mat cut_fft_img2, cut_fft_mag2, cut_ifft_img2;
     ft::cut_frequencies(custom_fft_img, cut_fft_img2, 40, true);
@@ -38,7 +39,7 @@ int main(void)
     ft::fft_2d(cut_fft_img2, cut_ifft_img2, true);
     ft::to_real(cut_ifft_img2, cut_ifft_img2);
     cv::normalize(cut_ifft_img2, cut_ifft_img2, 0, 1, cv::NORM_MINMAX);
-    cv::imshow("ifft_img2", cut_ifft_img2);
+    cv::imshow("ifft_img2", cut_ifft_img2(cv::Rect(0, 0, img_size.width, img_size.height)));
 
 
     while (cv::waitKey() != (int)'q')

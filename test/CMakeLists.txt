@@ -26,5 +26,18 @@ target_include_directories(
     ${OpenCV_INCLUDE_DIRS}
 )
 add_test(NAME FrequencyCuttingTest
-        COMMAND freq_cut_test)
-         
+         COMMAND freq_cut_test)
+
+add_executable(filter_test filter_test.cpp)
+target_link_libraries(filter_test
+  PUBLIC
+    ${OpenCV_LIBS}
+    ft_lib
+)
+target_include_directories(
+  filter_test
+  PUBLIC
+    ${OpenCV_INCLUDE_DIRS}
+)
+add_test(NAME FilterTest
+         COMMAND filter_test)

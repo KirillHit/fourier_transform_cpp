@@ -63,12 +63,12 @@ void dft_2d(const cv::Mat& src, cv::Mat& dst, bool inverse)
 {
     cv::Size src_size = src.size();
     CMat res = src.clone();
-    for (int v_idx = 0; v_idx < src_size.height; ++v_idx)
+    for (int v_idx = 0; v_idx < src_size.width; ++v_idx)
     {
         CMat col_step = res.col(v_idx);
         dft_1d(col_step, col_step, inverse);
     }
-    for (int h_idx = 0; h_idx < src_size.width; ++h_idx)
+    for (int h_idx = 0; h_idx < src_size.height; ++h_idx)
     {
         CMat row_step = res.row(h_idx);
         dft_1d(row_step, row_step, inverse);

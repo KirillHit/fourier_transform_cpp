@@ -6,9 +6,11 @@
 
 int main(void)
 {
-    cv::Mat img = cv::imread(std::string(SOURCE_DIR) + "/images/lena.png");
+    cv::Mat img = cv::imread(std::string(SOURCE_DIR) + "/images/park.jpg");
     cv::cvtColor(img, img, cv::COLOR_BGR2GRAY);
+    cv::Size img_size = img.size();
     ft::dft_optimal_size(img, img);
+    cv::imshow("org", img);
 
     cv::Mat custom_dft_img, custom_fft_img, cv_dft_img, c_img;
     cv::Mat custom_dft_mag, custom_fft_mag, cv_dft_mag;
@@ -47,9 +49,7 @@ int main(void)
     ft::fft_2d(custom_fft_img, custom_ifft_img, true);
     ft::to_real(custom_ifft_img, custom_ifft_img);
     cv::normalize(custom_ifft_img, custom_ifft_img, 0, 1, cv::NORM_MINMAX);
-    cv::imshow("custom_ifft_img", custom_ifft_img); 
-
-    cv::imshow("org", img);
+    cv::imshow("custom_ifft_img", custom_ifft_img(cv::Rect(0, 0, img_size.width, img_size.height)));
 
     while (cv::waitKey() != (int)'q')
     {
