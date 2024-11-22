@@ -15,7 +15,7 @@ void dft_1d(const CMat& src, CMat& dst, bool inverse)
     double sign = -1.0;
     if (inverse)
     {
-        double sign = 1.0;
+        sign = 1.0;
     }
 
     using namespace std::complex_literals;
@@ -72,10 +72,6 @@ void dft_2d(const cv::Mat& src, cv::Mat& dst, bool inverse)
     {
         CMat row_step = res.row(h_idx);
         dft_1d(row_step, row_step, inverse);
-    }
-    if (inverse)
-    {
-        cv::flip(res, res, -1);
     }
     dst = res;
 }

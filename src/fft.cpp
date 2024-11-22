@@ -47,7 +47,7 @@ void fft_1d(const CMat& src, CMat& dst, bool inverse)
     double sign = -1.0;
     if (inverse)
     {
-        double sign = 1.0;
+        sign = 1.0;
     }
     using namespace std::complex_literals;
     const CDouble W = std::exp((sign * 2.0 * 1i * std::numbers::pi) / static_cast<double>(M));
@@ -108,7 +108,6 @@ void fft_2d(const cv::Mat& src, cv::Mat& dst, bool inverse)
     if (inverse)
     {
         res = res / (res_size.height * res_size.width);
-        cv::flip(res, res, -1);
     }
     dst = res;
 }
