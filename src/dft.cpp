@@ -35,7 +35,7 @@ void dft_1d(const CMat& src, CMat& dst, bool inverse)
     {
         CMat first_row = w_prod.row(h_idx);
         CDouble* dst_ptr = first_row.ptr<CDouble>();
-        for (size_t w_idx = 0; w_idx < M; ++w_idx, dst_ptr++, step_w *= W)
+        for (size_t w_idx = 0; w_idx < M; ++w_idx, dst_ptr++)
         {
             *dst_ptr = prep_ptr[h_idx * w_idx];
         }
